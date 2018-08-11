@@ -25,7 +25,7 @@ router.post('/', function(req, res, next) {
         res.send(result);
       })
     };
-    console.log({ name, upc, quantity, expiration, location, retailer, category, img_url });
+
     db.close();
     console.log('---MONGO CONNECTION CLOSED---');
   });
