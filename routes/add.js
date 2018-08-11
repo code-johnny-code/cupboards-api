@@ -1,15 +1,17 @@
 require('dotenv').config()
 const express = require('express');
 const router = express.Router();
-const db = require('db')
-db.connect({
-  host: process.env.DB_HOST,
-  username: process.env.DB_USER,
-  password: process.env.DB_PASS
-})
-/* GET users listing. */
-router.get('/', function(req, res, next) {
-  res.send('Add an item');
+
+/* POST A NEW/UPDATED ITEM. */
+// Expected params: item_id, name, upc, quantity, expiration, location, retailer, category, img_url
+router.post('/', function(req, res, next) {
+  const { item_id, name, upc, quantity, expiration, location, retailer, category, img_url } = req.body;
+  
+  // TODO: 
+  // if (item_id) { check location, increment quantity }
+  // else { create/save a new record }
+  
+  res.send(req.body);
 });
 
 module.exports = router;
