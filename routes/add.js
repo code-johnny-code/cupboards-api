@@ -6,7 +6,9 @@ const { MongoClient, ObjectId } = require('mongodb');
 /* POST A NEW/UPDATED ITEM. */
 // Expected params: item_id, name, upc, quantity, expiration, location, retailer, category, img_url
 router.post('/', function(req, res, next) {
-  const { itemId, name, upc, quantity, expiration, location, retailer, category, img_url } = req.body;
+  console.log(req);
+  console.log(req.body)
+  const { itemId, name, price, minimum, upc, quantity, expiration, location, retailer, category, img_url } = req.body;
   const { DB_URL, DB_NAME, DB_COLLECTION } = process.env;
   
   MongoClient.connect(DB_URL, function(err, db) {
@@ -20,10 +22,8 @@ router.post('/', function(req, res, next) {
       });
     }
     else {
-      data.insert({name, upc, quantity, expiration, location, retailer, category, img_url}).then((result) => {
-        console.log(result);
-        res.send(result);
-      })
+      data.insert({name, price, minimum, upc, quantity, expiration, location, retailer, category, img_url})
+      .then((result) => { res.send(result) })
     };
 
     db.close();
