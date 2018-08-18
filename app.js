@@ -10,6 +10,7 @@ const addRouter = require('./routes/add');
 const useRouter = require('./routes/use');
 const listRouter = require('./routes/list');
 const lookupRouter = require('./routes/lookup');
+const deleteRouter = require('./routes/delete');
 
 const app = express();
 
@@ -37,6 +38,7 @@ app.use('/add', addRouter);
 app.use('/use', useRouter);
 app.use('/list', listRouter);
 app.use('/lookup', lookupRouter);
+app.use('/delete', deleteRouter);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
