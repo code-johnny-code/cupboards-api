@@ -8,8 +8,6 @@ const { MongoClient, ObjectId } = require('mongodb');
 router.post('/', function(req, res, next) {
   const { item_Id, name, price, minimum, upc, quantity, expiration, location, retailer, category, img_url } = req.body;
   const { DB_URL, DB_NAME, DB_COLLECTION } = process.env;
-  console.log(item_Id);
-  console.log(req.body);
   
   MongoClient.connect(DB_URL, function(err, db) {
     console.log('---MONGO CONNECTION INITIATED---');
@@ -17,7 +15,7 @@ router.post('/', function(req, res, next) {
     console.log('---MONGO CONNECTION OPEN---');
     var data = db.db(DB_NAME).collection(DB_COLLECTION);
     if (item_Id) {
-      data.update({ "_id": ObjectId(item_Id) }, { name, price, minimum, quantity, expiration, location, retailer, category }).then(result => {
+      data.update({ "_id": ObjectId(item_Id) }, { $set: { name, price, minimum, quantity, expiration, location, retailer, category }}).then(result => {
         res.send(result);
       });
     }
