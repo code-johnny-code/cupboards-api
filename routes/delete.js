@@ -7,7 +7,7 @@ const { MongoClient, ObjectId } = require('mongodb');
 router.post('/', function(req, res, next) {
   const { DB_URL, DB_NAME, DB_COLLECTION } = process.env;
   const { item_Id } =  req.body;
-  MongoClient.connect(DB_URL, function(err, db) {
+  MongoClient.connect(DB_URL, {uri_decode_auth: true}, function(err, db) {
     console.log('---MONGO CONNECTION INITIATED---');
     if (err) throw err;
     console.log('---MONGO CONNECTION OPEN---');
