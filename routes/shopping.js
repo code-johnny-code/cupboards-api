@@ -3,7 +3,7 @@ const express = require('express');
 const router = express.Router();
 const { MongoClient } = require('mongodb');
 
-/* GET ALL AVAILABLE ITEMS. */
+/* GET ALL ITEMS ON THE SHOPPING LIST. */
 router.get('/', function(req, res, next) {
   const { DB_URL, DB_NAME, DB_COLLECTION } = process.env;
 
@@ -12,7 +12,7 @@ router.get('/', function(req, res, next) {
     if (err) throw err;
     console.log('---MONGO CONNECTION OPEN---');
     var data = db.db(DB_NAME).collection(DB_COLLECTION);
-    data.find({ deleted: false }).toArray(function(err, result) {
+    data.find({onList: true}).toArray(function(err, result) {
       if (err) throw err;
       res.send(result);
     });
