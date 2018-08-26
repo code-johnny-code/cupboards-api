@@ -27,4 +27,21 @@ router.post('/shop', function(req, res, next) {
   });
 });
 
+router.get('/shopClear', function(req, res, next) {
+  const { DB_URL, DB_NAME, DB_COLLECTION } = process.env;
+
+  MongoClient.connect(DB_URL, {uri_decode_auth: true}, function(err, db) {
+    console.log('---MONGO CONNECTION INITIATED---');
+    if (err) throw err;
+    console.log('---MONGO CONNECTION OPEN---');
+    var data = db.db(DB_NAME).collection(DB_COLLECTION);
+    data.updateMany({}, { $set: { onList: false }}).then(result => {
+      res.send(result);
+    });
+
+    db.close();
+    console.log('---MONGO CONNECTION CLOSED---');
+  });
+});
+
 module.exports = router;
