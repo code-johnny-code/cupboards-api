@@ -13,7 +13,9 @@ router.post('/', function(req, res, next) {
     console.log('---MONGO CONNECTION OPEN---');
     var data = db.db(DB_NAME).collection(DB_COLLECTION);
     if (item_Id) {
-      data.remove({ "_id": ObjectId(item_Id) }).then((response) => res.send(response));
+      data.update({ "_id": ObjectId(item_Id) }, { $set: { deleted: true }}).then(result => {
+        res.send(result);
+      });
     }
     else {
       res.send({'error': 'Record not found'});

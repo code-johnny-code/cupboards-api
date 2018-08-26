@@ -15,12 +15,12 @@ router.post('/', function(req, res, next) {
     console.log('---MONGO CONNECTION OPEN---');
     var data = db.db(DB_NAME).collection(DB_COLLECTION);
     if (item_Id) {
-      data.update({ "_id": ObjectId(item_Id) }, { $set: { name, price, minimum, quantity, expiration, bestBy, location, retailer, category, onList, toGet }}).then(result => {
+      data.update({ "_id": ObjectId(item_Id) }, { $set: { name, price, minimum, quantity, expiration, bestBy, location, retailer, category, onList, toGet, deleted: false }}).then(result => {
         res.send(result);
       });
     }
     else {
-      data.insert({name, price, minimum, upc, quantity, expiration, bestBy, location, retailer, category, img_url, onList, toGet})
+      data.insert({name, price, minimum, upc, quantity, expiration, bestBy, location, retailer, category, img_url, onList, toGet, deleted: false})
       .then((result) => { res.send(result) })
     };
 
