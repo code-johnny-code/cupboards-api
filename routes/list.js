@@ -12,7 +12,7 @@ router.get('/', function(req, res, next) {
     if (err) throw err;
     console.log('---MONGO CONNECTION OPEN---');
     var data = db.db(DB_NAME).collection(DB_COLLECTION);
-    data.find({ deleted: false || null }).toArray(function(err, result) {
+    data.find({ deleted: null }).toArray(function(err, result) {
       if (err) throw err;
       res.send(result);
     });
